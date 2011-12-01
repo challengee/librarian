@@ -72,7 +72,7 @@ module Librarian
       private
 
         def run!(text)
-          text = "git #{text} --quiet"
+          text = "git #{text == '.' ? '.' : text} --quiet"
           debug { "Running `#{text}` in #{relative_path_to(Dir.pwd)}" }
           out = Open3.popen3(text) do |i, o, e, t|
             raise StandardError, e.read unless (t ? t.value : $?).success?
